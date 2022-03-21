@@ -24,4 +24,13 @@ public class Toy extends PanacheEntity {
     @ManyToMany
     public List<Cat> cats = new ArrayList<>();
 
+    //Constructors
+    public Toy(){
+    }
+
+    public Toy(String name, Size size, List<Cat> cats) {
+        this.name = name;
+        this.size = size;
+        this.cats = cats;
+    }
 }

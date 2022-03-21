@@ -31,4 +31,18 @@ public class Cat extends PanacheEntity {
 
     @ManyToMany
     public List<Toy> toys = new ArrayList<>();
+
+    //Constructors
+    public Cat(){
+    }
+
+    public Cat(String name, int age, Color color, Owner owner, List<Toy> toys) {
+        this.name = name;
+        this.age = age;
+        this.color = color;
+        this.owner = owner;
+        this.toys = toys;
+    }
+
+
 }
