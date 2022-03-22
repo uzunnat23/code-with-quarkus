@@ -28,18 +28,18 @@ public class Cat extends PanacheEntity {
     public Owner owner;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    public List<Toy> toys = new ArrayList<>();
+    public List<Toy> toy = new ArrayList<>();
 
     //Constructors
     public Cat() {
     }
 
-    public Cat(String name, int age, Color color, Owner owner, List<Toy> toys) {
+    public Cat(String name, int age, Color color, Owner owner, List<Toy> toy) {
         this.name = name;
         this.age = age;
         this.color = color;
         this.owner = owner;
-        this.toys = toys;
+        this.toy = toy;
     }
 
     public Long getId() {
@@ -78,11 +78,11 @@ public class Cat extends PanacheEntity {
         this.owner = owner;
     }
 
-    public List<Toy> getToys() {
-        return toys;
+    public List<Toy> getToy() {
+        return toy;
     }
 
-    public void setToys(List<Toy> toys) {
-        this.toys = toys;
+    public void setToy(List<Toy> toy) {
+        this.toy = toy;
     }
 }
