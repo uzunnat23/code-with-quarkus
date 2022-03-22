@@ -26,4 +26,32 @@ public class Owner extends PanacheEntity {
         this.firstName = firstName;
         this.cats = cats;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public List<Cat> getCats() {
+        return cats;
+    }
+
+    public void setCats(List<Cat> cats) {
+        this.cats = cats;
+    }
 }

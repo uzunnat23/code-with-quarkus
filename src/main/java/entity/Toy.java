@@ -26,12 +26,40 @@ public class Toy extends PanacheEntity {
     public List<Cat> cats = new ArrayList<>();
 
     //Constructors
-    public Toy(){
+    public Toy() {
     }
 
     public Toy(String name, Size size, List<Cat> cats) {
         this.name = name;
         this.size = size;
+        this.cats = cats;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Size getSize() {
+        return size;
+    }
+
+    public void setSize(Size size) {
+        this.size = size;
+    }
+
+    public List<Cat> getCats() {
+        return cats;
+    }
+
+    public void setCats(List<Cat> cats) {
         this.cats = cats;
     }
 }

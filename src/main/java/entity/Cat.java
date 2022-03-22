@@ -1,6 +1,7 @@
 package entity;
 
 //import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.persistence.*;
@@ -23,14 +24,14 @@ public class Cat extends PanacheEntity {
     public Color color;
 
     @ManyToOne(fetch = FetchType.LAZY)
-   // @JsonIgnore
+    // @JsonIgnore
     public Owner owner;
 
     @ManyToMany(fetch = FetchType.LAZY)
     public List<Toy> toys = new ArrayList<>();
 
     //Constructors
-    public Cat(){
+    public Cat() {
     }
 
     public Cat(String name, int age, Color color, Owner owner, List<Toy> toys) {
@@ -41,5 +42,47 @@ public class Cat extends PanacheEntity {
         this.toys = toys;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    public List<Toy> getToys() {
+        return toys;
+    }
+
+    public void setToys(List<Toy> toys) {
+        this.toys = toys;
+    }
 }
