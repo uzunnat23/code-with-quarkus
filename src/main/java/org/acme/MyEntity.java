@@ -6,20 +6,20 @@ import javax.persistence.Id;
 
 /**
  * Example JPA entity.
- *
+ * <p>
  * To use it, get access to a JPA EntityManager via injection.
- *
+ * <p>
  * {@code
- *     @Inject
- *     EntityManager em;
  *
- *     public void doSomething() {
- *         MyEntity entity1 = new MyEntity();
- *         entity1.setField("field-1");
- *         em.persist(entity1);
- *
- *         List<MyEntity> entities = em.createQuery("from MyEntity", MyEntity.class).getResultList();
- *     }
+ * @Inject EntityManager em;
+ * <p>
+ * public void doSomething() {
+ * MyEntity entity1 = new MyEntity();
+ * entity1.setField("field-1");
+ * em.persist(entity1);
+ * <p>
+ * List<MyEntity> entities = em.createQuery("from MyEntity", MyEntity.class).getResultList();
+ * }
  * }
  */
 @Entity
