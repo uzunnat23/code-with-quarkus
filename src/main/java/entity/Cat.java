@@ -2,25 +2,21 @@ package entity;
 
 //import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import enums.Color;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Entity
 @Table(name = "cats")
 public class Cat extends PanacheEntity {
-    enum Color {
-        Black,
-        White,
-        Brown,
-        Ginger
-    }
 
     public String name;
     public int age;
+
+    @Enumerated(EnumType.STRING)
     public Color color;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,11 +1,9 @@
 package entity;
 
+import enums.Size;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +11,9 @@ import java.util.List;
 @Table(name = "toys")
 public class Toy extends PanacheEntity {
 
-    enum Size {
-        Small,
-        Medium,
-        Big
-    }
-
     public String name;
+
+    @Enumerated(EnumType.STRING)
     public Size size;
 
     @ManyToMany(fetch = FetchType.LAZY)
