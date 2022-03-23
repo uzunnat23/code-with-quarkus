@@ -3,10 +3,12 @@ package services;
 import entity.Cat;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@ApplicationScoped
 public class CatService {
     public List<Cat> get() {
         List<Cat> listAll = Cat.findAll().list();
