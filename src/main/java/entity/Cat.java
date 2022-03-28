@@ -30,7 +30,7 @@ public class Cat extends PanacheEntity {
     public Cat() {
     }
 
-    public Cat(String name, int age, Color color, Owner owner, List<Toy> toy) {
+    public Cat(String name, int age, Color color, Owner owner, List<Toy> toy) { //
         this.name = name;
         this.age = age;
         this.color = color;

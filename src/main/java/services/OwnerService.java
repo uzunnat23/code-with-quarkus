@@ -13,10 +13,10 @@ public class OwnerService {
     public List<Owner> get() {
         List<Owner> listAll = Owner.findAll().list();
         return listAll.stream().map(o -> {
-            return new Owner(o.lastName, o.firstName, o.cats);
+            return new Owner(o.lastName, o.firstName, o.cats); //
         }).collect(Collectors.toList());
-
     }
+
 
     @Transactional
     public void create(Owner owner) {
@@ -36,7 +36,7 @@ public class OwnerService {
     }
 
     @Transactional
-    public void delete(Long id){
+    public void delete(Long id) {
         Owner.deleteById(id);
     }
 

@@ -16,6 +16,11 @@ public class Toy extends PanacheEntity {
     @Enumerated(EnumType.STRING)
     public Size size;
 
+
+    //    @JoinTable(
+//            name = "toys_cats",
+//            joinColumns = @JoinColumn(name = "Toy_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "cats_id", referencedColumnName = "id"))
     @ManyToMany(fetch = FetchType.LAZY)
     public List<Cat> cats = new ArrayList<>();
 

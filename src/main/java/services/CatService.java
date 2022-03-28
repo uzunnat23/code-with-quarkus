@@ -1,6 +1,7 @@
 package services;
 
 import entity.Cat;
+import enums.Color;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -13,7 +14,7 @@ public class CatService {
     public List<Cat> get() {
         List<Cat> listAll = Cat.findAll().list();
         return listAll.stream().map(c -> {
-            return new Cat(c.name, c.age, c.color, c.owner, c.toy);
+            return new Cat(c.name, c.age, c.color, c.owner, c.toy);//
         }).collect(Collectors.toList());
 
     }
@@ -43,4 +44,6 @@ public class CatService {
     public void delete(Long id) {
         Cat.deleteById(id);
     }
+
+
 }

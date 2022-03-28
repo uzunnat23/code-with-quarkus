@@ -1,11 +1,13 @@
 package resources;
 
 import entity.Cat;
+import entity.Owner;
 import services.CatService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/cats")
@@ -16,14 +18,20 @@ public class CatResource {
     @Inject
     CatService catService;
 
+
+    // public List<Cat> get() {
+    //    return catService.get();
+    // }
     @GET
-    public List<Cat> get() {
-        return catService.get();
+    public Response get() {
+        List<Cat> cats = catService.get();
+        return Response.ok(cats).build();
     }
 
     @POST
     public void create(Cat cat) {
         catService.create(cat);
+
     }
 
     @PUT

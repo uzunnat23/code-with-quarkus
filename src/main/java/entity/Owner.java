@@ -14,17 +14,20 @@ public class Owner extends PanacheEntity {
     public String firstName;
 
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY) //mappedBy = "owner"
     public List<Cat> cats = new ArrayList<>();
 
     //Constructors
     public Owner() {
+
     }
 
-    public Owner(String lastName, String firstName, List<Cat> cats) {
+    public Owner(String lastName, String firstName, List<Cat> cats) {//
+
         this.lastName = lastName;
         this.firstName = firstName;
-        this.cats = cats;
+       this.cats = cats;
+
     }
 
     public Long getId() {
@@ -46,10 +49,9 @@ public class Owner extends PanacheEntity {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
     public List<Cat> getCats() {
-        return cats;
-    }
+       return cats;
+   }
 
     public void setCats(List<Cat> cats) {
         this.cats = cats;

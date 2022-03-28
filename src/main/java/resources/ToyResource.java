@@ -6,6 +6,7 @@ import services.ToyService;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/toys")
@@ -16,8 +17,9 @@ public class ToyResource {
     ToyService toyService;
 
     @GET
-    public List<Toy> get() {
-        return toyService.get();
+    public Response get() {
+        List<Toy> owners = toyService.get();
+        return Response.ok(owners).build();
     }
 
     @POST
