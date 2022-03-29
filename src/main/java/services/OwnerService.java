@@ -5,6 +5,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
+import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,31 +14,30 @@ public class OwnerService {
     public List<Owner> get() {
         List<Owner> listAll = Owner.findAll().list();
         return listAll.stream().map(o -> {
-            return new Owner(o.lastName, o.firstName, o.cats); //
+            return new Owner(o.lastName, o.firstName); //, o.cats
         }).collect(Collectors.toList());
     }
 
 
     @Transactional
-    public void create(Owner owner) {
+    public boolean create(Owner owner) {
         Owner o = new Owner();
-        o.lastName = o.getLastName();
-        o.firstName = o.getFirstName();
-        o.cats = o.getCats();
+        o.lastName = owner.getLastName();
+        o.firstName = owner.getFirstName();
         o.persist();
+        return o.isPersistent();
     }
 
     @Transactional
-    public void update(Owner owner) {
-        Owner o = PanacheEntityBase.findById(owner.getId());
-        o.lastName = o.getLastName();
-        o.firstName = o.getFirstName();
-        o.cats = o.getCats();
+    public void update(Long id, Owner owner) {
+        Owner o = Owner.findById(id);
+        o.setLastName(owner.getLastName());
+        o.setFirstName(owner.getFirstName());
     }
 
     @Transactional
-    public void delete(Long id) {
-        Owner.deleteById(id);
+    public boolean delete(Long id) {
+        return Owner.deleteById(id);
     }
 
 }
