@@ -1,7 +1,5 @@
 package entity;
 
-//import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import enums.Color;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
@@ -13,29 +11,25 @@ import java.util.List;
 @Table(name = "cats")
 public class Cat extends PanacheEntity {
 
+    @Column(name = "name")
     public String name;
+
+    @Column(name = "age")
     public int age;
 
+    @Column(name = "color")
     @Enumerated(EnumType.STRING)
     public Color color;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    // @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "owner_id")
     public Owner owner;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     public List<Toy> toy = new ArrayList<>();
 
     //Constructors
     public Cat() {
-    }
-
-    public Cat(String name, int age, Color color, Owner owner, List<Toy> toy) { //
-        this.name = name;
-        this.age = age;
-        this.color = color;
-        this.owner = owner;
-        this.toy = toy;
     }
 
     public Long getId() {
@@ -65,6 +59,7 @@ public class Cat extends PanacheEntity {
     public void setColor(Color color) {
         this.color = color;
     }
+
 
     public Owner getOwner() {
         return owner;

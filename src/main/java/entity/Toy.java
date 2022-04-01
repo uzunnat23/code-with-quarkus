@@ -11,17 +11,18 @@ import java.util.List;
 @Table(name = "toys")
 public class Toy extends PanacheEntity {
 
+    @Column(name="name")
     public String name;
 
+    @Column(name = "size")
     @Enumerated(EnumType.STRING)
     public Size size;
 
-
-    //    @JoinTable(
-//            name = "toys_cats",
-//            joinColumns = @JoinColumn(name = "Toy_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "cats_id", referencedColumnName = "id"))
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany( fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "toys_cats",
+            joinColumns = @JoinColumn(name = "Toy_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "cats_id", referencedColumnName = "id"))
     public List<Cat> cats = new ArrayList<>();
 
     //Constructors
@@ -31,7 +32,7 @@ public class Toy extends PanacheEntity {
     public Toy(String name, Size size, List<Cat> cats) {
         this.name = name;
         this.size = size;
-        this.cats = cats;
+        //      this.cats = cats;
     }
 
     public Long getId() {
@@ -54,11 +55,4 @@ public class Toy extends PanacheEntity {
         this.size = size;
     }
 
-    public List<Cat> getCats() {
-        return cats;
-    }
-
-    public void setCats(List<Cat> cats) {
-        this.cats = cats;
-    }
 }

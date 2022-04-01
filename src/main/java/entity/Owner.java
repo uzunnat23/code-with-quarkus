@@ -1,33 +1,36 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "owners")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Owner extends PanacheEntity {
 
-    @Column(name="lastName", nullable = false)
+
+    @Column(name = "lastName", nullable = false)
     public String lastName;
-    @Column(name="firstName", nullable = false)
+    @Column(name = "firstName", nullable = false)
     public String firstName;
 
-
-//    @OneToMany(fetch = FetchType.LAZY) //mappedBy = "owner"
-//    public List<Cat> cats = new ArrayList<>();
+    @JsonInclude()
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL,  fetch = FetchType.EAGER)
+    public List<Cat> cats = new ArrayList<>();
 
     //Constructors
     public Owner() {
-
     }
 
-    public Owner(String lastName, String firstName) {//, List<Cat> cats
-
+    public Owner(String lastName, String firstName) {//
         this.lastName = lastName;
         this.firstName = firstName;
- //      this.cats = cats;
-
     }
 
     public Long getId() {
@@ -49,11 +52,8 @@ public class Owner extends PanacheEntity {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-//    public List<Cat> getCats() {
-//       return cats;
-//   }
-//
-//    public void setCats(List<Cat> cats) {
-//        this.cats = cats;
-//    }
+
+    public List<Cat> getCats() {
+        return cats;
+    }
 }

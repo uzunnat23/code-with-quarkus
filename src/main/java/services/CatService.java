@@ -1,48 +1,41 @@
 package services;
 
 import entity.Cat;
-import enums.Color;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class CatService {
     public List<Cat> get() {
-        List<Cat> listAll = Cat.findAll().list();
-        return listAll.stream().map(c -> {
-            return new Cat(c.name, c.age, c.color, c.owner, c.toy);//
-        }).collect(Collectors.toList());
-
+        List<Cat> cats = Cat.listAll();
+        return cats;
     }
 
     @Transactional
-    public void create(Cat cat) {
+    public boolean create(Cat cat) {
         Cat c = new Cat();
-        c.name = c.getName();
-        c.age = c.getAge();
-        c.color = c.getColor();
-        c.owner = c.getOwner();
-        c.toy = c.getToy();
+        c.name = cat.getName();
+        c.age = cat.getAge();
+        c.color = cat.getColor();
+        c.owner = cat.getOwner();
         c.persist();
+        return c.isPersistent();
     }
 
     @Transactional
-    public void update(Cat cat) {
-        Cat c = PanacheEntityBase.findById(cat.getId());
-        c.name = c.getName();
-        c.age = c.getAge();
-        c.color = c.getColor();
-        c.owner = c.getOwner();
-        c.toy = c.getToy();
+    public void update(Long id, Cat cat) {
+        Cat c = Cat.findById(id);
+        c.setName(c.getName());
+        c.setAge(c.getAge());
+        c.setColor(c.getColor());
+        c.setOwner(c.getOwner());
     }
 
     @Transactional
-    public void delete(Long id) {
-        Cat.deleteById(id);
+    public boolean delete(Long id) {
+        return Cat.deleteById(id);
     }
 
 
