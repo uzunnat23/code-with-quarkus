@@ -1,7 +1,9 @@
 package resources;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Cat;
-import entity.Owner;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import services.CatService;
 
 import javax.inject.Inject;
@@ -14,34 +16,36 @@ import java.util.List;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class CatResource {
+public class CatResource extends PanacheEntity {
     @Inject
     CatService catService;
+    @Inject
+    private ObjectMapper mapper;
 
-
-    // public List<Cat> get() {
-    //    return catService.get();
-    // }
     @GET
-    public Response get() {
+    public Response get() throws JsonProcessingException {
         List<Cat> cats = catService.get();
-        return Response.ok(cats).build();
+        return Response.ok(mapper.writeValueAsString(cats)).build();
     }
 
     @POST
-    public void create(Cat cat) {
-        catService.create(cat);
-
+    public Response create(Cat cat) {
+        if (catService.create(cat)) {
+            return Response.status(201).build();
+        }
+        return Response.status(404).build();
     }
 
     @PUT
-    public void update(Cat cat) {
-        catService.update(cat);
+    @Path("/{id}")
+    public Response update(@PathParam("id") Long id, Cat cat) {
+        catService.update(id, cat);
+        return Response.status(200).build();
     }
 
     @DELETE
     @Path("{id}")
-    public void delete(@PathParam("id") Long id) {
-        catService.delete(id);
+    public Response delete(@PathParam("id") Long id) {
+        return (catService.delete(id)) ? Response.noContent().build() : Response.status(404).build();
     }
 }

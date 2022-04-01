@@ -1,5 +1,7 @@
 package resources;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Toy;
 import services.ToyService;
 
@@ -15,26 +17,33 @@ import java.util.List;
 public class ToyResource {
     @Inject
     ToyService toyService;
+    @Inject
+    private ObjectMapper mapper;
 
     @GET
-    public Response get() {
-        List<Toy> owners = toyService.get();
-        return Response.ok(owners).build();
+    public Response get() throws JsonProcessingException {
+        List<Toy> toys = toyService.get();
+        return Response.ok(mapper.writeValueAsString(toys)).build();
     }
 
     @POST
-    public void create(Toy toy) {
-        toyService.create(toy);
+    public Response create(Toy toy) {
+        if (toyService.create(toy)) {
+            return Response.status(201).build();
+        }
+        return Response.status(404).build();
     }
 
     @PUT
-    public void update(Toy toy) {
-        toyService.update(toy);
+    @Path("/{id}")
+    public Response update(@PathParam("id") Long id, Toy toy) {
+        toyService.update(id, toy);
+        return Response.status(200).build();
     }
 
     @DELETE
     @Path("{id}")
-    public void delete(@PathParam("id") Long id) {
-        toyService.delete(id);
+    public Response delete(@PathParam("id") Long id) {
+        return (toyService.delete(id)) ? Response.noContent().build() : Response.status(404).build();
     }
 }

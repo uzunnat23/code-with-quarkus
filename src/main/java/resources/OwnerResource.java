@@ -1,12 +1,12 @@
 package resources;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Owner;
 import services.OwnerService;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.ws.rs.*;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -19,10 +19,13 @@ public class OwnerResource {
     @Inject
     OwnerService ownerService;
 
+    @Inject
+    private ObjectMapper mapper;
+
     @GET
-    public Response get() {
+    public Response get() throws JsonProcessingException {
         List<Owner> owners = ownerService.get();
-        return Response.ok(owners).build();
+        return Response.ok(mapper.writeValueAsString(owners)).build();
     }
 
     @POST
@@ -43,8 +46,7 @@ public class OwnerResource {
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
-        return (ownerService.delete(id)) ? Response.noContent().build()
-                                            : Response.status(404).build();
+        return (ownerService.delete(id)) ? Response.noContent().build() : Response.status(404).build();
     }
 
 }
