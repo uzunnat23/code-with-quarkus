@@ -1,0 +1,14 @@
+h1 {
+  color: #343434;
+  font-family: 'Ultra', sans-serif;
+  font-size: 36px;
+  text-transform: uppercase;
+  text-shadow: 0 2px white, 0 3px #777;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1000px;
+}
