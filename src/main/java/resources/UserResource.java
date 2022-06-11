@@ -1,9 +1,11 @@
 package resources;
 
+import entity.User;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import entity.Owner;
-import services.OwnerService;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import services.UserService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -11,26 +13,31 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/owners")
+@Path("/rest/user")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class OwnerResource {
-
+public class UserResource extends PanacheEntity {
     @Inject
-    OwnerService ownerService;
+    UserService userService;
 
     @Inject
     private ObjectMapper mapper;
 
     @GET
     public Response get() throws JsonProcessingException {
-        List<Owner> owners = ownerService.get();
-        return Response.ok(mapper.writeValueAsString(owners)).build();
+        List<User> users = userService.get();
+        return Response.ok(mapper.writeValueAsString(users)).build();
+    }
+
+    @GET
+    @Path("/{email}")
+    public User search(@PathParam("email") String email) {
+        return User.findByEmail(email);
     }
 
     @POST
-    public Response create(Owner owner) {
-        if (ownerService.create(owner)) {
+    public Response create(User user) {
+        if (userService.create(user)) {
             return Response.status(201).build();
         }
         return Response.status(404).build();
@@ -38,18 +45,14 @@ public class OwnerResource {
 
     @PUT
     @Path("/{id}")
-    public Response update(@PathParam("id") Long id, Owner owner) {
-        ownerService.update(id, owner);
+    public Response update(@PathParam("id") Long id, User user) {
+        userService.update(id, user);
         return Response.status(200).build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id") Long id) {
-        return (ownerService.delete(id)) ? Response.noContent().build() : Response.status(404).build();
+        return (userService.delete(id)) ? Response.noContent().build() : Response.status(404).build();
     }
-
 }
-
-
-
