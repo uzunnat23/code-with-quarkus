@@ -1,0 +1,52 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="email">E-mail</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Введенный E-mail не валиден!">
+      <input nz-input formControlName="email" id="email" [(ngModel)]="email"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>Пароль</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Пожалуйста введите ваш пароль!">
+      <input
+        nz-input
+        [(ngModel)]="password"
+        type="password"
+        id="password"
+        formControlName="password"
+        (ngModelChange)="updateConfirmValidator()"
+      />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="checkPassword" nzRequired>Повторите пароль</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorTpl">
+      <input nz-input type="password" formControlName="checkPassword" id="checkPassword"/>
+      <ng-template #errorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">Пожалуйста, подтвердите свой пароль!</ng-container>
+        <ng-container *ngIf="control.hasError('confirm')">
+          Два пароля, которые вы вводите, несовместимы!
+        </ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label
+      [nzSm]="6"
+      [nzXs]="24"
+      nzFor="nickname"
+      nzRequired
+      nzTooltipTitle="Как вы хотите чтобы другие называли вас?"
+    >
+      <span>Псевдоним</span>
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Пожалуйста введите ваш псевдоним!">
+      <input nz-input id="nickname" formControlName="nickname" [(ngModel)]="nickname"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-row class="register-area">
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+        <button nz-button nzType="primary" (click)="add(email, password, nickname)" routerLink="/login">Зарегистрироваться</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

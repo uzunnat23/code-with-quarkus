@@ -1,0 +1,17 @@
+<nz-table #sortTable [nzData]="messages" nzTableLayout="fixed">
+  <thead>
+  <tr>
+    <!--    [nzSortPriority]="column.priority" *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" -->
+    <th>Email</th>
+    <th>Тема сообщения</th>
+    <th>Описание проблемы</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of sortTable.data">
+    <td>{{ data.user.email }}</td>
+    <td>{{ data.title }}</td>
+    <td>{{ data.text }}</td>
+  </tr>
+  </tbody>
+</nz-table>

@@ -1,0 +1,125 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar"
+            nzCollapsible
+            nzWidth="256px"
+            nzBreakpoint="md"
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <i nz-icon [nzType]="'heart'" [nzTheme]="'twotone'" [nzTwotoneColor]="'#ffffff'"></i>
+      <a routerLink="/welcome"><h1>Поддержка подростков</h1></a>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzOpen nzTitle="Статьи" nzIcon="read">
+        <ul>
+          <!--          <li nz-menu-item nzMatchRouter>-->
+          <!--            <a routerLink="/welcome">Welcome</a>-->
+          <!--          </li>-->
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/childhood"> Психотравмы детства</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/self-esteem">Низкая самоценка</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/relationship">Болезненные отношения</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/meaning-of-life">Смысл жизни</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/depression">Депрессия и мысли о суициде</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="Тесты для самооценки" nzIcon="form">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/test-beka">Шкала безнадёжности Бека</a>
+          </li>
+        </ul>
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/test-zanga">Шкала тревоги Занга</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="Связаться с психологом" nzIcon="wechat">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/send-message">Отправить сообщение</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger"
+               nz-icon
+               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+        </span>
+        <ng-container *ngIf="isUserLoggedIn && isAdmin; else withoutAdmin">
+          <button
+            class="button-login"
+            nz-button
+            nzType="primary"
+            nzGhost
+            nzSize="default"
+            routerLink="/logout">
+            <i nz-icon nzType="logout" nzTheme="outline"></i>
+            Выйти
+          </button>
+          <button
+            class="button-login"
+            nz-button
+            nzType="primary"
+            nzGhost
+            nzSize="default"
+            routerLink="/read-message">
+            <i nz-icon nzType="mail" nzTheme="outline"></i>
+          </button>
+        </ng-container>
+        <ng-template #withoutAdmin>
+          <ng-container *ngIf="isUserLoggedIn; else isLogOut">
+            <button
+              class="button-login"
+              nz-button
+              nzType="primary"
+              nzGhost
+              nzSize="default"
+              routerLink="/logout">
+              <i nz-icon
+                 nzType="login"
+                 nzTheme="outline"></i>
+              Выйти
+            </button>
+          </ng-container>
+        </ng-template>
+        <ng-template #isLogOut>
+          <button
+            class="button-login"
+            nz-button
+            nzType="primary"
+            nzGhost
+            nzSize="default"
+            routerLink="/login">
+            <i nz-icon
+               nzType="login"
+               nzTheme="outline"></i>
+            Войти
+          </button>
+
+        </ng-template>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

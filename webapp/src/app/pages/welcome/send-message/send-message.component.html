@@ -1,0 +1,32 @@
+ <h1 align=center>Отправьте сообщение нашему психологу!</h1>
+<nz-input-group [nzSuffix]="inputClearTpl">
+  <input type="text" nz-input [(ngModel)]="title" placeholder="Введите тему сообщения!" />
+</nz-input-group>
+<ng-template #inputClearTpl>
+<!--  <i-->
+<!--    nz-icon-->
+<!--    class="ant-input-clear-icon"-->
+<!--    nzTheme="fill"-->
+<!--    nzType="close-circle"-->
+<!--    *ngIf="title"-->
+<!--    (click)="title = null"-->
+<!--  ></i>-->
+</ng-template>
+<br />
+<br />
+<nz-input-group [nzSuffix]="textAreaClearTpl" class="ant-input-affix-wrapper-textarea-with-clear-btn">
+  <textarea rows="4" nz-input [(ngModel)]="text" placeholder="Подробно опишите вашу проблему!"></textarea>
+</nz-input-group>
+<ng-template #textAreaClearTpl>
+<!--  <i-->
+<!--    nz-icon-->
+<!--    class="ant-input-clear-icon"-->
+<!--    nzTheme="fill"-->
+<!--    nzType="close-circle"-->
+<!--    *ngIf="text"-->
+<!--    (click)="textClear = null">-->
+<!--  </i>-->
+</ng-template><br><br><br>
+<div>
+ <button nz-button nzType="primary" (click)="add(text, title, user)">Отправить</button>
+</div>

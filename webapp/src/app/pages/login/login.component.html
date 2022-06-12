@@ -1,0 +1,19 @@
+<form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm(validateForm.value)">
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Пожалуйста введите ваш email!">
+      <nz-input-group nzPrefixIcon="user">
+        <input type="email" nz-input formControlName="email" placeholder="Email" [(ngModel)]="email"/>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Пожалуйста введите ваш пароль!">
+      <nz-input-group nzPrefixIcon="lock">
+        <input type="password" nz-input formControlName="password" placeholder="Пароль" [(ngModel)]="password"/>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" >Войти</button>
+  Или
+  <a routerLink="/registration">зарегистрироваться сейчас!</a>
+</form>
